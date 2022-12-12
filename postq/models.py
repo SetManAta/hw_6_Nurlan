@@ -9,7 +9,7 @@ class AbstractPerson(models.Model):
     class Meta:
         abstract = True
 
-    def age(self):
+    def get_age(self):
         date.today - self.birth_date
 
     def __str__(self):
@@ -27,6 +27,12 @@ class Passport(models.Model):
     inn = models.CharField(max_length=16)
     id_card = models.CharField(max_length=10)
     employee = models.OneToOneField(Employee, on_delete=models.CASCADE,related_name='passports')
+
+    def get_gender(self):
+        if self.inn[0] == 1:
+            return 'Women'
+        elif self.inn[0] == 2:
+            return 'Men'
 
     def __str__(self):
         return self.inn
